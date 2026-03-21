@@ -78,7 +78,7 @@ gha ()
     if [ -n "$3" ]; then
       MOUNT="-v $PWD/$3:/opt/actions-runner/rusefi-env:ro"
     fi
-    docker run -it --privileged $MOUNT -e RUNNER_NAME="$NAME" -e RUNNER_LABELS="$LABEL" -e GITHUB_ACCESS_TOKEN="$TOKEN" -e RUNNER_REPOSITORY_URL=https://github.com/$REPO --name $NAME rusefi-ci
+    docker run -it --device /dev:/dev:rw --privileged $MOUNT -e RUNNER_NAME="$NAME" -e RUNNER_LABELS="$LABEL" -e GITHUB_ACCESS_TOKEN="$TOKEN" -e RUNNER_REPOSITORY_URL=https://github.com/$REPO --name $NAME rusefi-ci
   fi
 }
 ```
