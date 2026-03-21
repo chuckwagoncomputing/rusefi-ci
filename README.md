@@ -104,14 +104,14 @@ On your host machine, you need to make your board and ST-Link owned by the docke
 Place this in /etc/udev/rules.d/70-rusefi.rules, replacing the serials with those of your board and ST-Link respectively.
 
 ```
-SUBSYSTEM=="tty", ATTRS{serial}=="24001D001247393338343537", GROUP="docker"
-SUBSYSTEM=="usb", ATTRS{serial}=="066CFF3834344E5043242446", GROUP="docker"
+SUBSYSTEM=="tty", SUBSYSTEMS=="usb", ATTRS{serial}=="24001D001247393338343537", GROUP:="docker"
+SUBSYSTEM=="tty", SUBSYSTEMS=="usb", ATTRS{serial}=="066CFF3834344E5043242446", GROUP:="docker"
 ```
 
 If you have a ST-Link with binary data in the serial, it needs some special treatment. If you only have one, you can use the Product ID for the udev rule instead of the serial:
 
 ```
-SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", GROUP="docker"
+SUBSYSTEM=="tty", SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", GROUP:="docker"
 ```
 
 You can get these values by running `lsusb` and looking for your ST-Link.
@@ -126,7 +126,7 @@ Now we will make udev call that script, and compare the result to your serial. C
 [Gethla](https://github.com/a-v-s/gethla) can automatically find your device and give you the fully escaped serial.
 
 ```
-SUBSYSTEM=="usb", PROGRAM="/bin/sh /opt/getserial.sh %k" RESULT=="\x49\x3F\x6A\x06\x48\x3F\x54\x53\x25\x50\x10\x3F", GROUP="docker"
+SUBSYSTEM="tty", SUBSYSTEMS=="usb", PROGRAM="/bin/sh /opt/getserial.sh %k" RESULT=="\x49\x3F\x6A\x06\x48\x3F\x54\x53\x25\x50\x10\x3F", GROUP:="docker"
 ```
 
 ### Configuring Runner
