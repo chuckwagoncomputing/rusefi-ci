@@ -39,48 +39,48 @@ RUN groupadd docker -g $GID &&\
     apt-get update -y &&\
     DEBIAN_FRONTEND=noninteractive /opt/actions-runner/bin/installdependencies.sh && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    bc \
-    curl \
-    jq \
-    build-essential \
-    git \
-    gcc \
-    make \
-    cmake \
-    openjdk-8-jdk-headless \
     ant \
-    mtools \
+    bc \
+    build-essential \
+    cmake \
+    curl \
     dosfstools \
-    zip \
-    xxd \
-    usbutils \
-    openocd \
-    sudo \
-    ruby-rubygems \
-    time \
-    lsb-release \
-    file \
-    netbase \
-    gcc-multilib \
-    g++-multilib \
-    g++-mingw-w64 \
-    gcc-mingw-w64 \
-    sshpass \
     doxygen \
+    file \
+    g++-mingw-w64 \
+    g++-multilib \
+    gcc \
+    gcc-mingw-w64 \
+    gcc-multilib \
+    git \
     graphviz \
+    iproute2 \
+    jq \
+    kicad \
     lcov \
-    valgrind \
+    librsvg2-bin \
+    lsb-release \
+    make \
+    mtools \
+    netbase \
+    openjdk-8-jdk-headless \
+    openocd \
+    openssh-client \
     python3-pip \
     python3-tk \
+    ruby-rubygems \
     scour \
-    librsvg2-bin \
-    temurin-11-jdk \
-    uidmap \
-    supervisor \
-    iproute2 \
-    openssh-client \
-    kicad \
+    sshpass \
     stlink-tools \
+    sudo \
+    supervisor \
+    temurin-11-jdk \
+    time \
+    uidmap \
+    usbutils \
+    valgrind \
+    xxd \
+    zip \
     && apt-get autoremove -y && apt-get clean -y &&\
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers &&\
     echo 'APT::Get::Assume-Yes "true";' >/etc/apt/apt.conf.d/90forceyes &&\
