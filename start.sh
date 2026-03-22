@@ -1,5 +1,7 @@
 #!/bin/bash
 
+dockerd-rootless-setuptool.sh install
+
 if [[ "$@" == "bash" ]]; then
     exec $@
 fi

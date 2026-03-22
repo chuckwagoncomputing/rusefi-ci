@@ -88,7 +88,7 @@ RUN groupadd docker -g $GID &&\
     update-alternatives --set java /usr/lib/jvm/temurin-11-jdk-amd64/bin/java
 
 # Install Docker CLI
-RUN curl -fsSL https://get.docker.com -o- | sh -s -- --version 24 && \
+RUN curl -fsSL https://get.docker.com -o- | sh -s -- --version 29 && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean
 
@@ -98,8 +98,6 @@ RUN chmod 644 /etc/supervisor/conf.d/supervisord.conf
 WORKDIR /opt
 
 USER docker
-
-RUN dockerd-rootless-setuptool.sh install
 
 VOLUME /opt/actions-runner
 
