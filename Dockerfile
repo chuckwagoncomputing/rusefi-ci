@@ -35,7 +35,6 @@ RUN groupadd docker -g $GID &&\
     wget -O key.gpg https://packages.adoptium.net/artifactory/api/gpg/key/public &&\
     gpg --dearmor -o /usr/share/keyrings/adoptium.gpg key.gpg &&\
     echo "deb [signed-by=/usr/share/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" >/etc/apt/sources.list.d/adoptium.list &&\
-    add-apt-repository --yes ppa:kicad/kicad-7.0-releases &&\
     apt-get update -y &&\
     DEBIAN_FRONTEND=noninteractive /opt/actions-runner/bin/installdependencies.sh && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
