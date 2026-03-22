@@ -19,7 +19,7 @@ RUN apt-get update &&\
 
 
 
-FROM ubuntu:22.04 AS actions-runer
+FROM ubuntu:24.04 AS actions-runer
 
 COPY --from=builder /opt /opt
 COPY --from=builder /tmp/rusefi-provide_gcc12 /tmp/rusefi-provide_gcc12
