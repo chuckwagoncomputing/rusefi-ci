@@ -24,7 +24,7 @@ FROM ubuntu:22.04 AS actions-runer
 COPY --from=builder /opt /opt
 COPY --from=builder /tmp/rusefi-provide_gcc12 /tmp/rusefi-provide_gcc12
 
-ENV JAVA_HOME /usr/lib/jvm/temurin-11-jdk-amd64/
+ENV JAVA_HOME=/usr/lib/jvm/temurin-11-jdk-amd64/
 
 ARG GID=1000
 
