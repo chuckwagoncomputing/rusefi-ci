@@ -102,7 +102,7 @@ USER docker
 VOLUME /opt/actions-runner
 
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
-ENV PATH /home/docker/.local/bin:$PATH
+ENV PATH=/home/docker/.local/bin:$PATH
 
 ENTRYPOINT ["./start.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
