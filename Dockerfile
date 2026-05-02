@@ -38,6 +38,7 @@ RUN groupadd docker -g $GID &&\
     apt-get update -y &&\
     DEBIAN_FRONTEND=noninteractive /opt/actions-runner/bin/installdependencies.sh && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+		7zip \
     ant \
     bc \
     build-essential \
