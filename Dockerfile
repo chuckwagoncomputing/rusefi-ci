@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 AS builder
+FROM cruizba/ubuntu-dind:noble-latest AS builder
 
 ARG RUNNER_VERSION="2.334.0"
 
@@ -19,7 +19,7 @@ RUN apt-get update &&\
 
 
 
-FROM ubuntu:24.04 AS actions-runer
+FROM cruizba/ubuntu-dind:noble-latest AS actions-runer
 
 COPY --from=builder /opt /opt
 COPY --from=builder /tmp/rusefi-provide_gcc12 /tmp/rusefi-provide_gcc12
@@ -28,8 +28,7 @@ ENV JAVA_HOME=/usr/lib/jvm/temurin-11-jdk-amd64/
 
 ARG GID=1000
 
-RUN groupadd docker -g $GID &&\
-    useradd -m -g docker -G sudo docker &&\
+RUN useradd -m -g docker -G sudo docker &&\
     apt-get update -y &&\
     apt-get install -y wget gpg software-properties-common &&\
     wget -O key.gpg https://packages.adoptium.net/artifactory/api/gpg/key/public &&\
@@ -87,11 +86,6 @@ RUN groupadd docker -g $GID &&\
     chown -R docker /opt &&\
     chown -R docker /tmp/rusefi-provide_gcc12 &&\
     update-alternatives --set java /usr/lib/jvm/temurin-11-jdk-amd64/bin/java
-
-# Install Docker CLI
-RUN curl -fsSL https://get.docker.com -o- | sh -s -- --version 29 && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-get clean
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN chmod 644 /etc/supervisor/conf.d/supervisord.conf

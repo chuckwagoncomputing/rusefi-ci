@@ -4,7 +4,7 @@ This dockerfile will automatically download and configure the github actions sel
 
 To run, first build the image with:
 
-`docker build --build-arg GID=$(getent group docker | cut -d ':' -f 3) -t rusefi-ci .`
+`docker build -t rusefi-ci .`
 
 Then run the newly built image.
 
