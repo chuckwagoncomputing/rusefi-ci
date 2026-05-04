@@ -42,6 +42,7 @@ RUN useradd -m -g docker -G sudo docker &&\
     bc \
     build-essential \
     cmake \
+		colordiff \
     curl \
     dosfstools \
     doxygen \
