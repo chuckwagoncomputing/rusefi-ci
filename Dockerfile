@@ -16,13 +16,11 @@ RUN apt-get update &&\
 
 
 
-FROM cruizba/ubuntu-dind:noble-latest AS actions-runer
+FROM cruizba/ubuntu-dind:noble-latest AS actions-runner
 
 COPY --from=builder /opt /opt
 
 ENV JAVA_HOME=/usr/lib/jvm/temurin-11-jdk-amd64/
-
-ARG GID=1000
 
 RUN useradd -m -g docker -G sudo docker &&\
     apt-get update -y &&\
@@ -33,12 +31,12 @@ RUN useradd -m -g docker -G sudo docker &&\
     apt-get update -y &&\
     DEBIAN_FRONTEND=noninteractive /opt/actions-runner/bin/installdependencies.sh && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-		7zip \
+    7zip \
     ant \
     bc \
     build-essential \
     cmake \
-		colordiff \
+    colordiff \
     curl \
     dosfstools \
     doxygen \
