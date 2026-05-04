@@ -8,13 +8,10 @@ COPY start.sh /opt/start.sh
 
 ADD https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz /build/
 
-ADD https://raw.githubusercontent.com/rusefi/rusefi/master/firmware/provide_gcc.sh /build/
-
 RUN apt-get update &&\
     apt-get -y install curl xz-utils &&\
     mkdir -p /opt/actions-runner &&\
     tar -xf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz -C /opt/actions-runner/ &&\
-    bash provide_gcc.sh &&\
     chmod +x /opt/start.sh
 
 
@@ -22,7 +19,6 @@ RUN apt-get update &&\
 FROM cruizba/ubuntu-dind:noble-latest AS actions-runer
 
 COPY --from=builder /opt /opt
-COPY --from=builder /tmp/rusefi-provide_gcc12 /tmp/rusefi-provide_gcc12
 
 ENV JAVA_HOME=/usr/lib/jvm/temurin-11-jdk-amd64/
 
@@ -85,7 +81,6 @@ RUN useradd -m -g docker -G sudo docker &&\
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers &&\
     echo 'APT::Get::Assume-Yes "true";' >/etc/apt/apt.conf.d/90forceyes &&\
     chown -R docker /opt &&\
-    chown -R docker /tmp/rusefi-provide_gcc12 &&\
     update-alternatives --set java /usr/lib/jvm/temurin-11-jdk-amd64/bin/java
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
